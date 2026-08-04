@@ -25,17 +25,21 @@ portable contract -> validated input -> registered runner -> validated output
 - **Host-controlled:** contracts cannot fetch URLs, read secrets, or execute code.
 - **Small:** zero runtime dependencies and no UI framework.
 
-## Install
+## Try it locally
 
 ```bash
-npm install @wizgenerator/core
+git clone https://github.com/wizgenerator/generator-core.git
+cd generator-core
+npm install
+npm test
+npm run examples
 ```
 
-Until the first npm publication is available, install from the repository or clone it and run `npm install && npm test`.
+The `@wizgenerator/core` npm package is prepared but not published yet. The registry install command and npm badge will be added only after the public package is verified.
 
 Node.js 20 or newer is required. The package is ESM.
 
-## Quick start
+## Library API
 
 ```ts
 import {
