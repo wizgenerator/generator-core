@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/wizgenerator/generator-core/v0.1.0/schema/generator-contract.schema.json",
+  "title": "WizGenerator Generator Contract 1.0",
+  "description": "Portable declaration for a generator's inputs, output, and runner binding.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "id", "version", "title", "inputs", "output", "runner"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "inputs": {
+      "type": "array",
+      "maxItems": 50,
+      "items": { "$ref": "#/$defs/input" }
+    },
+    "output": { "$ref": "#/$defs/valueSchema" },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": { "id": { "$ref": "#/$defs/id" } }
+    },
+    "tags": {
+      "type": "array",
+      "maxItems": 30,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 50 }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "maxLength": 100
+    },
+    "inputBase": {
+      "type": "object",
+      "required": ["id", "label"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 500 },
+        "required": { "type": "boolean" }
+      }
+    },
+    "input": {
+      "oneOf": [
+        {
+          "allOf": [
+            { "$ref": "#/$defs/inputBase" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "type", "label"],
+              "properties": {
+                "id": { "$ref": "#/$defs/id" },
+                "type": { "const": "text" },
+                "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                "description": { "type": "string", "maxLength": 500 },
+                "required": { "type": "boolean" },
+                "default": { "type": "string" },
+                "minLength": { "type": "integer", "minimum": 0 },
+                "maxLength": { "type": "integer", "minimum": 0, "maximum": 100000 },
+                "trim": { "type": "boolean" }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/inputBase" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "type", "label"],
+              "properties": {
+                "id": { "$ref": "#/$defs/id" },
+                "type": { "const": "number" },
+                "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                "description": { "type": "string", "maxLength": 500 },
+                "required": { "type": "boolean" },
+                "default": { "type": "number" },
+                "minimum": { "type": "number" },
+                "maximum": { "type": "number" },
+                "integer": { "type": "boolean" }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/inputBase" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "type", "label"],
+              "properties": {
+                "id": { "$ref": "#/$defs/id" },
+                "type": { "const": "boolean" },
+                "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                "description": { "type": "string", "maxLength": 500 },
+                "required": { "type": "boolean" },
+                "default": { "type": "boolean" }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/inputBase" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "type", "label", "options"],
+              "properties": {
+                "id": { "$ref": "#/$defs/id" },
+                "type": { "const": "select" },
+                "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                "description": { "type": "string", "maxLength": 500 },
+                "required": { "type": "boolean" },
+                "default": { "type": "string" },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["label", "value"],
+                    "properties": {
+                      "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                      "value": { "type": "string", "maxLength": 200 }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "valueSchema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "const": "string" },
+            "minLength": { "type": "integer", "minimum": 0 },
+            "maxLength": { "type": "integer", "minimum": 0, "maximum": 100000 },
+            "enum": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "const": "number" },
+            "minimum": { "type": "number" },
+            "maximum": { "type": "number" },
+            "integer": { "type": "boolean" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": { "type": { "const": "boolean" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "items"],
+          "properties": {
+            "type": { "const": "array" },
+            "items": { "$ref": "#/$defs/valueSchema" },
+            "minItems": { "type": "integer", "minimum": 0 },
+            "maxItems": { "type": "integer", "minimum": 0, "maximum": 10000 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "properties"],
+          "properties": {
+            "type": { "const": "object" },
+            "properties": {
+              "type": "object",
+              "maxProperties": 100,
+              "propertyNames": {
+                "not": { "enum": ["__proto__", "constructor", "prototype"] },
+                "maxLength": 100
+              },
+              "additionalProperties": { "$ref": "#/$defs/valueSchema" }
+            },
+            "required": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "type": "string", "maxLength": 100 }
+            },
+            "additionalProperties": { "type": "boolean" }
+          }
+        }
+      ]
+    }
+  }
+}

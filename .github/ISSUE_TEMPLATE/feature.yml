@@ -1,0 +1,25 @@
+name: Capability proposal
+description: Propose a focused capability backed by a real generator use case.
+title: "[Proposal]: "
+labels: [proposal]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Generator use case
+      description: What concrete generator cannot be expressed safely with the current contract or API?
+    validations:
+      required: true
+  - type: textarea
+    id: smallest-change
+    attributes:
+      label: Smallest useful change
+      description: Show the proposed contract or API shape and its failure boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: true

@@ -1,0 +1,61 @@
+{
+  "name": "@wizgenerator/core",
+  "version": "0.1.0",
+  "description": "A provider-neutral runtime and portable contract for building reliable generators.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "WizGenerator",
+  "homepage": "https://github.com/wizgenerator/generator-core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wizgenerator/generator-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wizgenerator/generator-core/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "generator",
+    "runtime",
+    "json-schema",
+    "typescript",
+    "ai",
+    "structured-output",
+    "deterministic"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./contract.schema.json": "./schema/generator-contract.schema.json"
+  },
+  "types": "./dist/src/index.d.ts",
+  "files": [
+    "dist/src",
+    "schema",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "check": "npm run typecheck && npm test",
+    "examples": "npm run build && node dist/examples/name-generator.js && node dist/examples/unicode-transformer.js && node dist/examples/structured-brief.js",
+    "prepack": "npm run check"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ajv": "^8.17.1",
+    "typescript": "^5.8.0"
+  }
+}

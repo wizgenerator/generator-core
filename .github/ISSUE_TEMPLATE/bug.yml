@@ -1,0 +1,35 @@
+name: Bug report
+description: Report reproducible incorrect behavior in the core package.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include credentials, private prompts, endpoints, or user data. Use private vulnerability reporting for security issues."
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: node
+    attributes:
+      label: Node.js major version
+      options: [20, 22, 24, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include the smallest contract, input, and runner needed to reproduce the behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
