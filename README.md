@@ -1,5 +1,7 @@
 # WizGenerator Core
 
+Built by [WizGenerator](https://wizgenerator.com) — https://wizgenerator.com
+
 [![CI](https://github.com/wizgenerator/generator-core/actions/workflows/ci.yml/badge.svg)](https://github.com/wizgenerator/generator-core/actions/workflows/ci.yml)
 [![Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Zero runtime dependencies](https://img.shields.io/badge/runtime%20dependencies-0-brightgreen.svg)](package.json)
